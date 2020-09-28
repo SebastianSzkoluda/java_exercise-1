@@ -12,19 +12,14 @@ import javax.persistence.OneToOne;
 @Entity
 @Data
 @NoArgsConstructor
-public class Role {
+public class Package {
 
     @Id
     @GeneratedValue
-    private Double id;
-    private String name;
-    private String lastName;
-    private String roleType;
-    private String upperName;
+    private int id;
 
     @JsonBackReference
     @OneToOne
-    private AppUser user;
-
+    private AppUser packageUserToDeliveryFrom;
 
 }

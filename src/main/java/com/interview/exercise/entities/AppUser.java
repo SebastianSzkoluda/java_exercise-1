@@ -1,7 +1,5 @@
 package com.interview.exercise.entities;
 
-import com.interview.exercise.Package;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,7 +7,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity
+@Entity(name = "APP_USER")
 @Data
 @NoArgsConstructor
 public class AppUser {
@@ -26,5 +24,5 @@ public class AppUser {
     private Role role;
 
     @ManyToMany
-    public List<Package> aPackage;
+    private List<Package> aPackage;
 }

@@ -15,7 +15,7 @@
     <description>Demo project for Spring Boot</description>
 
     <properties>
-        <java.version>11</java.version>
+        <java.version>1.8</java.version>
     </properties>
 
     <dependencies>
@@ -113,7 +113,7 @@
                                 <processor>org.mapstruct.ap.MappingProcessor</processor>
                             </processors>
                             <outputDirectory>${basedir}/target/generated-sources-mappers</outputDirectory>
-                            <compilerArguments>-source 11 -target 11</compilerArguments>
+                            <compilerArguments>-source 1.8 -target 1.8</compilerArguments>
                         </configuration>
                     </execution>
                 </executions>
