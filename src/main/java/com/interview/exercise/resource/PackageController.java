@@ -13,11 +13,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/paczki")
-public class GiveMeAllPackagesFacade {
+@RequestMapping("/packages")
+public class PackageController {
+
+    private final AppUserRepository appUserRepository;
 
     @Autowired
-    AppUserRepository appUserRepository;
+    public PackageController(AppUserRepository appUserRepository) {
+        this.appUserRepository = appUserRepository;
+    }
 
 
     @GetMapping("/all")

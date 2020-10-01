@@ -5,9 +5,9 @@ import com.interview.exercise.entities.Role;
 
 public interface RoleMapper {
 
-    public Role roleDtoToRole(RoleDto roleDto);
+    Role roleDtoToRole(RoleDto roleDto);
 
-    public default String nameToUpper(RoleDto roleDto) {
+    default String nameToUpper(RoleDto roleDto) {
         return roleDto.getName().toUpperCase();
     }
 }
