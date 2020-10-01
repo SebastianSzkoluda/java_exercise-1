@@ -1,21 +1,30 @@
 package com.interview.exercise.entities;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity(name = "APP_USER")
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table
 @Data
+@AllArgsConstructor(staticName = "of")
 @NoArgsConstructor
 public class AppUser {
 
     @Id
     @GeneratedValue
     private Long id;
-    private String name;
+    private String firstName;
     private String lastName;
     private String company;
     private LocalDateTime insertTime;
@@ -23,6 +32,9 @@ public class AppUser {
     @OneToOne
     private Role role;
 
-    @ManyToMany
-    private List<Package> aPackage;
+    @OneToMany
+    private List<Package> packages;
+
+    @OneToOne
+    private Courier courier;
 }

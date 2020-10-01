@@ -7,9 +7,7 @@ import lombok.Data;
 @Builder
 public class RoleDto {
 
-    private String name;
-    private String surname;
-    private UserDto user;
-
-
+    Long id;
+    private String roleType;
+    private AppUserDto user;
 }

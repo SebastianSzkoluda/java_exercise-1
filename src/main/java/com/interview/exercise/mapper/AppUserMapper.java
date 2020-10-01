@@ -1,17 +1,39 @@
 package com.interview.exercise.mapper;
 
-//Zakres szkolenia:
-
-import com.interview.exercise.dto.UserDto;
+import com.interview.exercise.dto.AppUserDto;
 import com.interview.exercise.entities.AppUser;
 
-import java.time.LocalDateTime;
+import java.util.stream.Collectors;
 
-public interface AppUserMapper {
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
-    AppUser userDtoToAppUser(UserDto userDto);
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class AppUserMapper {
 
-    default LocalDateTime modifyInsertName(UserDto userDto) {
-        return LocalDateTime.now();
+    public static AppUserDto mapToDto(AppUser entity) {
+        return AppUserDto.builder()//
+                .id(entity.getId())//
+                .company(entity.getCompany())//
+                .firstName(entity.getFirstName())//
+                .lastName(entity.getLastName())//
+                .insertTime(entity.getInsertTime())//
+                .courier(CourierMapper.mapToDto(entity.getCourier()))//
+                .packages(entity.getPackages().stream().map(PackageMapper::mapToDto).collect(Collectors.toList()))//
+                .role(RoleMapper.mapToDto(entity.getRole()))//
+                .build();
+    }
+
+    public static AppUser mapToEntity(AppUserDto dto) {
+        return AppUser.of(//
+                dto.getId(),//
+                dto.getCompany(),//
+                dto.getFirstName(),//
+                dto.getLastName(),//
+                dto.getInsertTime(),//
+                RoleMapper.mapToEntity(dto.getRole()),//
+                dto.getPackages().stream().map(PackageMapper::mapToEntity).collect(Collectors.toList()),//
+                CourierMapper.mapToEntity(dto.getCourier())
+        );
     }
 }

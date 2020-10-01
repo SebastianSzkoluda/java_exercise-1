@@ -1,15 +1,16 @@
 package com.interview.exercise.repository;
 
 import com.interview.exercise.entities.AppUser;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface AppUserRepository extends JpaRepository<AppUser, Integer> {
+public interface AppUserRepository extends JpaRepository<AppUser, Long> {
 
-    List<AppUser> findAllByIdIn(List<Integer> ids);
+    List<AppUser> findByIdIn(List<Long> ids);
 
-    List<AppUser> findAllByLastNameIn(List<String> nazwiska);
+    List<AppUser> findByLastNameIn(List<String> lastNames);
 }

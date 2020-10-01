@@ -1,59 +1,32 @@
 package com.interview.exercise.resource;
 
-import com.interview.exercise.dto.UserDto;
-import com.interview.exercise.entities.AppUser;
-import com.interview.exercise.entities.Package;
-import com.interview.exercise.repository.AppUserRepository;
+import com.interview.exercise.dto.PackageDto;
+import com.interview.exercise.mapper.PackageMapper;
+import com.interview.exercise.repository.PackageRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/packages")
 public class PackageController {
 
-    private final AppUserRepository appUserRepository;
+    private final PackageRepository packageRepository;
 
     @Autowired
-    public PackageController(AppUserRepository appUserRepository) {
-        this.appUserRepository = appUserRepository;
+    public PackageController(PackageRepository packageRepository) {
+        this.packageRepository = packageRepository;
     }
-
 
     @GetMapping("/all")
-    public List<Package> getAllPackagesInSystem(List<UserDto> użytkownicy) {
-
-        int helper = 0;
-
-        List<AppUser> wszyscy = new ArrayList<AppUser>();
-        List<String> userSurnames = new ArrayList<>();
-        for (UserDto myUser : użytkownicy) {
-
-            System.out.println(myUser.getName());
-
-            userSurnames.add(użytkownicy.get(helper).getSurname());
-
-            helper++;
-
-
-            wszyscy = appUserRepository.findAllByLastNameIn(userSurnames);
-        }
-
-        List<Package> paczki = new ArrayList<>();
-
-        for (AppUser user : wszyscy) {
-            List<Package> aPackage = user.getAPackage();
-            paczki.addAll(aPackage);
-        }
-
-
-        return paczki;
-
-
+    public List<PackageDto> getAllPackagesInSystem() {
+        return packageRepository.findAll().stream()//
+                .map(PackageMapper::mapToDto)//
+                .collect(Collectors.toList());
     }
-
 }

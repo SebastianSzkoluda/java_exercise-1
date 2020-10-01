@@ -1,11 +1,13 @@
 package com.interview.exercise.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -17,18 +19,19 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor(staticName = "of")
 @NoArgsConstructor
-public class Package {
+public class Courier {
 
     @Id
     @GeneratedValue
     private Long id;
-    private PackageStatus status;
+    private String firstName;
+    private String lastName;
+    private String company;
+    private LocalDateTime insertTime;
 
-    @JsonBackReference
-    @ManyToOne
-    private AppUser packageUserToDeliveryFrom;
+    @OneToOne
+    private AppUser client;
 
-    @JsonBackReference
-    @ManyToOne
-    private Courier courier;
+    @OneToMany
+    private List<Package> packages;
 }

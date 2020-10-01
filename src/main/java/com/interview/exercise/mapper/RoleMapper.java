@@ -3,11 +3,25 @@ package com.interview.exercise.mapper;
 import com.interview.exercise.dto.RoleDto;
 import com.interview.exercise.entities.Role;
 
-public interface RoleMapper {
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
-    Role roleDtoToRole(RoleDto roleDto);
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class RoleMapper {
 
-    default String nameToUpper(RoleDto roleDto) {
-        return roleDto.getName().toUpperCase();
+    public static RoleDto mapToDto(Role entity) {
+        return RoleDto.builder()
+                .id(entity.getId())//
+                .roleType(entity.getRoleType())//
+                .user(AppUserMapper.mapToDto(entity.getUser()))//
+                .build();
+    }
+
+    public static Role mapToEntity(RoleDto dto) {
+        return Role.of(//
+                dto.getId(),//
+                dto.getRoleType(),//
+                AppUserMapper.mapToEntity(dto.getUser())//
+        );
     }
 }
