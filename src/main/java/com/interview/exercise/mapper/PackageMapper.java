@@ -1,6 +1,8 @@
 package com.interview.exercise.mapper;
 
+import com.interview.exercise.dto.PackageAddDto;
 import com.interview.exercise.dto.PackageDto;
+import com.interview.exercise.entities.AppUser;
 import com.interview.exercise.entities.Package;
 
 import lombok.AccessLevel;
@@ -24,6 +26,15 @@ public class PackageMapper {
                 dto.getPackageStatus(),//
                 AppUserMapper.mapToEntity(dto.getPackageUserToDeliveryFrom()),//
                 CourierMapper.mapToEntity(dto.getCourier())//
+        );
+    }
+
+    public static Package mapToEntity(PackageAddDto dto, AppUser appUser) {
+        return Package.of(//
+                dto.getId(),//
+                dto.getPackageStatus(),//
+                appUser,//
+                null//
         );
     }
 }

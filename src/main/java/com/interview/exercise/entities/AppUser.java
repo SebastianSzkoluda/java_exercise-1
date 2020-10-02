@@ -1,11 +1,14 @@
 package com.interview.exercise.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -29,7 +32,8 @@ public class AppUser {
     private String company;
     private LocalDateTime insertTime;
 
-    @OneToOne
+    @JsonBackReference
+    @ManyToOne
     private Role role;
 
     @OneToMany

@@ -3,6 +3,8 @@ package com.interview.exercise.mapper;
 import com.interview.exercise.dto.RoleDto;
 import com.interview.exercise.entities.Role;
 
+import java.util.stream.Collectors;
+
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -13,7 +15,7 @@ public class RoleMapper {
         return RoleDto.builder()
                 .id(entity.getId())//
                 .roleType(entity.getRoleType())//
-                .user(AppUserMapper.mapToDto(entity.getUser()))//
+                .users(entity.getUsers().stream().map(AppUserMapper::mapToDto).collect(Collectors.toList()))//
                 .build();
     }
 
@@ -21,7 +23,7 @@ public class RoleMapper {
         return Role.of(//
                 dto.getId(),//
                 dto.getRoleType(),//
-                AppUserMapper.mapToEntity(dto.getUser())//
+                dto.getUsers().stream().map(AppUserMapper::mapToEntity).collect(Collectors.toList())//
         );
     }
 }

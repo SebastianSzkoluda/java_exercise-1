@@ -2,10 +2,12 @@ package com.interview.exercise.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -24,9 +26,8 @@ public class Role {
     private Long id;
     private String roleType;
 
-    @JsonBackReference
-    @OneToOne
-    private AppUser user;
+    @OneToMany
+    private List<AppUser> users;
 
 
 }

@@ -1,8 +1,10 @@
 package com.interview.exercise.mapper;
 
+import com.interview.exercise.dto.CourierAddDto;
 import com.interview.exercise.dto.CourierDto;
 import com.interview.exercise.entities.Courier;
 
+import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
 import lombok.AccessLevel;
@@ -32,6 +34,18 @@ public class CourierMapper {
                 dto.getInsertTime(),//
                 AppUserMapper.mapToEntity(dto.getClient()),//
                 dto.getPackages().stream().map(PackageMapper::mapToEntity).collect(Collectors.toList())//
+        );
+    }
+
+    public static Courier mapToEntity(CourierAddDto dto) {
+        return Courier.of(//
+                null,//
+                dto.getFirstName(),//
+                dto.getLastName(),//
+                dto.getCompany(),//
+                LocalDateTime.now(),//
+                null,//
+                null//
         );
     }
 }
