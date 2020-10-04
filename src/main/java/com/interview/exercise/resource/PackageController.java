@@ -3,15 +3,9 @@ package com.interview.exercise.resource;
 import com.interview.exercise.dto.PackageAddDto;
 import com.interview.exercise.dto.PackageDto;
 import com.interview.exercise.service.PackageService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -53,8 +47,6 @@ public class PackageController {
 
     @GetMapping("/{packageId}/{courierId}")
     public ResponseEntity<PackageDto> addPackageToCourier(@PathVariable Long packageId, @PathVariable Long courierId) {
-        return packageService.addPackgeToCourier(packageId, courierId)//
-                .map(ResponseEntity::ok)//
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        return ResponseEntity.ok(packageService.addPackgeToCourier(packageId, courierId));
     }
 }

@@ -4,5 +4,5 @@ import lombok.ToString;
 
 @ToString
 public enum PackageStatus {
-    WENT_TO_COURIER, ON_THE_ROAD, ARRIVED
+    WAITING_FOR_COURIER, WENT_TO_COURIER, ON_THE_ROAD, ARRIVED
 }

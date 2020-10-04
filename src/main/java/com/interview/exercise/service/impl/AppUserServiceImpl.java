@@ -3,10 +3,11 @@ package com.interview.exercise.service.impl;
 import com.interview.exercise.dto.AppUserAddDto;
 import com.interview.exercise.dto.AppUserDto;
 import com.interview.exercise.entities.AppUser;
+import com.interview.exercise.exception.RoleNotFoundException;
 import com.interview.exercise.mapper.AppUserMapper;
 import com.interview.exercise.repository.AppUserRepository;
+import com.interview.exercise.repository.RoleRepository;
 import com.interview.exercise.service.AppUserService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +19,12 @@ import java.util.stream.Collectors;
 public class AppUserServiceImpl implements AppUserService {
 
     private final AppUserRepository appUserRepository;
+    private final RoleRepository roleRepository;
 
     @Autowired
-    public AppUserServiceImpl(AppUserRepository appUserRepository) {
+    public AppUserServiceImpl(AppUserRepository appUserRepository, RoleRepository roleRepository) {
         this.appUserRepository = appUserRepository;
+        this.roleRepository = roleRepository;
     }
 
     @Override
@@ -32,7 +35,9 @@ public class AppUserServiceImpl implements AppUserService {
 
     @Override
     public AppUserDto addAppUser(AppUserAddDto appUserAddDto) {
-        AppUser appUser = AppUserMapper.mapToEntity(appUserAddDto);
+        AppUser appUser = roleRepository.findById(appUserAddDto.getRoleId())//
+                .map(r -> AppUserMapper.mapToEntity(appUserAddDto, r))//
+                .orElseThrow(() -> new RoleNotFoundException("Role with id: " + appUserAddDto.getRoleId() + " not found"));
         AppUser savedAppUser = appUserRepository.save(appUser);
         return AppUserMapper.mapToDto(savedAppUser);
     }

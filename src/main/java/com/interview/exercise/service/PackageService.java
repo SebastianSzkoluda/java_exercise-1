@@ -14,5 +14,5 @@ public interface PackageService {
 
     List<PackageDto> loadAllPackages();
 
-    Optional<PackageDto> addPackgeToCourier(Long packageId, Long courierId);
+    PackageDto addPackgeToCourier(Long packageId, Long courierId);
 }

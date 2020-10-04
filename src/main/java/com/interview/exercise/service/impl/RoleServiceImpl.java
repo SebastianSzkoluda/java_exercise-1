@@ -5,7 +5,6 @@ import com.interview.exercise.entities.Role;
 import com.interview.exercise.mapper.RoleMapper;
 import com.interview.exercise.repository.RoleRepository;
 import com.interview.exercise.service.RoleService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

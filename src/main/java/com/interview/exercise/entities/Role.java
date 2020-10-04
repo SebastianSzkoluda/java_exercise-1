@@ -1,32 +1,29 @@
 package com.interview.exercise.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
-import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
-@Table
+import javax.persistence.*;
+import java.util.List;
+
 @Data
-@AllArgsConstructor(staticName = "of")
 @NoArgsConstructor
+@AllArgsConstructor(staticName = "of")
+@Builder
+@Entity
+@Table(name = "Role")
 public class Role {
 
     @Id
-    @GeneratedValue
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "role_type")
     private String roleType;
 
-    @OneToMany
+    @OneToMany(mappedBy = "role", fetch = FetchType.EAGER)
     private List<AppUser> users;
 
 

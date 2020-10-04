@@ -10,5 +10,5 @@ public class AppUserAddDto {
     private String firstName;
     private String lastName;
     private String company;
-    private RoleDto role;
+    private Long roleId;
 }

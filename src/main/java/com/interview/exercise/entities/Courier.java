@@ -1,37 +1,36 @@
 package com.interview.exercise.entities;
 
+import lombok.*;
+
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Entity
-@Table
 @Data
-@AllArgsConstructor(staticName = "of")
 @NoArgsConstructor
+@AllArgsConstructor(staticName = "of")
+@Builder
+@With
+@Entity
+@Table(name = "Courier")
 public class Courier {
 
     @Id
-    @GeneratedValue
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "first_name")
     private String firstName;
+    @Column(name = "last_name")
     private String lastName;
+    @Column(name = "company")
     private String company;
+    @Column(name = "insert_time")
     private LocalDateTime insertTime;
 
     @OneToOne
     private AppUser client;
 
-    @OneToMany
+    @OneToMany(mappedBy = "courier", fetch = FetchType.EAGER)
     private List<Package> packages;
 }
